@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Kasinoklubben</title>
+<meta name="description" content="En hemmelig invitation til Kasinoklubbens aften." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♠️</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500;1,9..144,600&family=IBM+Plex+Sans:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0908;
+    --bg-panel: #15120f;
+    --board: #1b2620;
+    --board-frame: #3a2f1e;
+    --gold: #c6a15b;
+    --gold-bright: #ecd6a3;
+    --rule: rgba(198, 161, 91, 0.28);
+    --ink: #ece6da;
+    --ink-dim: #a89d8a;
+    --chalk: #f2efe4;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+  }
+
+  body {
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 8%, rgba(198, 161, 91, 0.10), transparent 60%),
+      radial-gradient(ellipse 120% 80% at 50% 100%, rgba(0,0,0,0.6), transparent 60%),
+      var(--bg);
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+
+  .stage {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: clamp(56px, 12vh, 108px) 24px clamp(72px, 14vh, 128px);
+  }
+
+  header.hero {
+    text-align: center;
+    margin-bottom: clamp(48px, 8vh, 76px);
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    margin: 0 0 18px;
+  }
+
+  h1.title {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: clamp(2.6rem, 9vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: 0.01em;
+    margin: 0;
+    color: var(--gold-bright);
+    text-wrap: balance;
+  }
+
+  .flicker {
+    animation: flicker 7s ease-in-out infinite;
+  }
+
+  @keyframes flicker {
+    0%, 100% { text-shadow: 0 0 18px rgba(236, 214, 163, 0.35), 0 0 46px rgba(198, 161, 91, 0.16); opacity: 1; }
+    42% { text-shadow: 0 0 18px rgba(236, 214, 163, 0.35), 0 0 46px rgba(198, 161, 91, 0.16); opacity: 1; }
+    44% { text-shadow: 0 0 6px rgba(236, 214, 163, 0.18); opacity: 0.86; }
+    46% { text-shadow: 0 0 18px rgba(236, 214, 163, 0.35), 0 0 46px rgba(198, 161, 91, 0.16); opacity: 1; }
+    87% { text-shadow: 0 0 18px rgba(236, 214, 163, 0.35), 0 0 46px rgba(198, 161, 91, 0.16); opacity: 1; }
+    89% { text-shadow: 0 0 4px rgba(236, 214, 163, 0.12); opacity: 0.9; }
+    91% { text-shadow: 0 0 18px rgba(236, 214, 163, 0.35), 0 0 46px rgba(198, 161, 91, 0.16); opacity: 1; }
+  }
+
+  .suit {
+    display: block;
+    margin: 22px auto 0;
+    color: var(--gold);
+    opacity: 0.85;
+    font-size: 15px;
+    letter-spacing: 0.5em;
+  }
+
+  .narrative p {
+    margin: 0 0 1.4em;
+    color: var(--ink);
+  }
+
+  .narrative p:last-child { margin-bottom: 0; }
+
+  section.block {
+    margin: clamp(40px, 7vh, 60px) 0;
+  }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: clamp(40px, 7vh, 60px) 0;
+  }
+
+  .board-label {
+    text-align: center;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    color: var(--ink-dim);
+    margin: 0 0 16px;
+  }
+
+  .board {
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px),
+      var(--board);
+    border: 1px solid var(--board-frame);
+    border-radius: 4px;
+    padding: clamp(28px, 5vw, 40px) clamp(24px, 6vw, 44px);
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.45), 0 18px 40px rgba(0,0,0,0.35);
+  }
+
+  .odds-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: "Caveat", cursive;
+    color: var(--chalk);
+  }
+
+  .odds-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    font-size: clamp(1.25rem, 3.6vw, 1.55rem);
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(242, 239, 228, 0.14);
+  }
+
+  .odds-list li:last-child { border-bottom: none; }
+
+  .odds-list .bet { text-shadow: 0 0 1px rgba(242,239,228,0.25); }
+
+  .odds-list .price {
+    font-weight: 600;
+    color: var(--gold-bright);
+    white-space: nowrap;
+  }
+
+  .odds-list li.ellipsis {
+    justify-content: center;
+    color: rgba(242, 239, 228, 0.45);
+    font-size: 1.6rem;
+  }
+
+  .key {
+    margin-top: clamp(22px, 4vh, 32px);
+    padding-top: 18px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    border-top: 1px solid var(--rule);
+  }
+
+  .key p { margin: 0 0 0.5em; }
+  .key p:last-child { margin-bottom: 0; }
+  .key .key-title {
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+  }
+
+  .croupier-quote {
+    margin: 1.6em 0 0;
+    padding-left: 20px;
+    border-left: 2px solid var(--gold);
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    color: var(--gold-bright);
+  }
+
+  .closing {
+    margin-top: clamp(56px, 9vh, 84px);
+    text-align: center;
+  }
+
+  .closing .line {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    color: var(--ink-dim);
+    margin: 0 0 10px;
+  }
+
+  .closing .line:last-child { margin-bottom: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flicker { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main class="stage">
+    <header class="hero">
+      <p class="eyebrow">Kun for inviterede</p>
+      <h1 class="title flicker">Kasinoklubben</h1>
+      <span class="suit" aria-hidden="true">♠ ♥ ♣ ♦</span>
+    </header>
+
+    <div class="narrative">
+      <p>Under Vardes knap så travle gader, bag en dør de fleste går forbi uden at lægge mærke til den, ligger et lokale uden vinduer. Lyset når aldrig helt ud i hjørnerne, og døren åbnes kun, når I går ind ad den. På væggen hænger en tavle fuld af odds skrevet med kridt.</p>
+      <p>Her mødes Kasinoklubben. Første tirsdag efter hver fuldmåne, klokken 20:00 præcis. Ingen kommer for sent. Ingen bliver væk.</p>
+      <p>Udenfor har I hver jeres liv, med job, familie og en pæn facade. Men herinde er jeres liv indsatsen.</p>
+      <p>Det startede uskyldigt. Regner det på lørdag? Vinder Varde IF søndag? Men virkeligheden blev hurtigt forudsigelig, og væddemålene rykkede tættere på. Nu står jeres egne navne på tavlen.</p>
+    </div>
+
+    <section class="block">
+      <p class="board-label">Odds-tavlen</p>
+      <div class="board">
+        <ul class="odds-list">
+          <li><span class="bet">Hacker Hans bliver forfremmet inden jul</span><span class="price">4:1</span></li>
+          <li><span class="bet">Bettina Lund ægteskab går i stykker inden nytår</span><span class="price">6:1</span></li>
+          <li class="ellipsis">…</li>
+        </ul>
+        <div class="key">
+          <p class="key-title">Hvordan du læser odds-tavlen</p>
+          <p>6:1 betyder: Sætter du 1, vinder du 6.</p>
+          <p>Jo større det første tal er, jo mindre tror klubben på, at det sker, og jo mere kan du vinde.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <div class="narrative">
+      <p>Det er Croupieren, der kalder jer sammen og sætter aftenens odds. Og det er Croupieren, der håndhæver klubbens eneste regel: Man må ikke påvirke udfaldet.</p>
+      <p class="croupier-quote">"Det er bare for sjov," siger Croupieren altid. "Lad os spice virkeligheden lidt op. Ellers er den så kedelig."</p>
+    </div>
+
+    <div class="closing">
+      <p class="line">Fuldmånen var i går.</p>
+      <p class="line">I aften mødes I.</p>
+      <p class="line">Og i aften står der et nyt væddemål på tavlen.</p>
+    </div>
+
+    <section class="block">
+      <div class="board">
+        <ul class="odds-list">
+          <li><span class="bet">En af jer har kun en fuldmåne tilbage</span><span class="price flicker">1:1</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
